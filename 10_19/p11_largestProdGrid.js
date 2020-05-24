@@ -15,6 +15,7 @@ const largestGridProduct = (arr) => {
 	return maxProd;
 };
 
+// Create smaller grid based on current row "r" & current column "c"
 const createSubArr = (arr, r, c) => {
 	const subArr1 = arr[r].slice(c, c + 4);
 	const subArr2 = arr[r + 1].slice(c, c + 4);
@@ -23,31 +24,36 @@ const createSubArr = (arr, r, c) => {
 	return [ subArr1, subArr2, subArr3, subArr4 ];
 };
 
+// Calculate maximum products from:
+// 		Horizonally Left to right
+// 		Vertically Top to bottom
+// 		Diagonally Top Left to Bottom Right
+// 		Diagonally Bottom Left to Top Right
 const calcProducts = (subArr) => {
-	let maxProd = 0;
+	let hProd, vProd;
 	for (let i = 0; i < 4; i++) {
-		// Horizontal Product
-		const hProd = subArr[i].reduce((acc, item) => acc * item, 1);
-		hProd > maxProd ? (maxProd = hProd) : null;
-		// Vertical Product
-		const vProd = [ subArr[0][i], subArr[1][i], subArr[2][i], subArr[3][i] ].reduce(
+		// Horizontally => i is #row
+		hProd = subArr[i].reduce((acc, item) => acc * item, 1);
+
+		// Vertically => is is #column
+		vProd = [ subArr[0][i], subArr[1][i], subArr[2][i], subArr[3][i] ].reduce(
 			(acc, item) => acc * item,
 			1
 		);
-		vProd > maxProd ? (maxProd = vProd) : null;
 	}
 
-	// Diagonal Product
+	// Diagonally Top Left to Bottom Right
 	const dProd1 = [ subArr[0][0], subArr[1][1], subArr[2][2], subArr[3][3] ].reduce(
 		(acc, item) => acc * item,
 		1
 	);
-	dProd1 > maxProd ? (maxProd = dProd1) : null;
+
+	// Diagonally Bottom Left to Top Right
 	const dProd2 = [ subArr[0][3], subArr[1][2], subArr[2][1], subArr[3][0] ].reduce(
 		(acc, item) => acc * item,
 		1
 	);
-	dProd2 > maxProd ? (maxProd = dProd2) : null;
 
-	return maxProd;
+	// return maxProd;
+	return Math.max(...[ hProd, vProd, dProd1, dProd2 ]);
 };
