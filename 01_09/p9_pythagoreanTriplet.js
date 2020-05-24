@@ -1,12 +1,9 @@
 const specialPythagoreanTriplet = (n) => {
-	for (let i = 2; i <= 100; i++) {
+	for (let i = 2; i <= Math.sqrt(n); i++) {
 		for (let j = 1; j < i; j++) {
 			const pythTriplet = genPythTriplet(i, j);
 			const pythTripletSum = pythTriplet.reduce((acc, item) => acc + item);
 
-			if (pythTripletSum > n) {
-				break;
-			}
 			if (pythTripletSum === n) {
 				return pythTriplet.reduce((acc, item) => acc * item);
 			}
