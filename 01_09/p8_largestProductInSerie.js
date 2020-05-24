@@ -1006,15 +1006,11 @@ const largestProductinaSeries = (n) => {
 
 	for (let i = 0; i <= thousandDigits.length - n; i++) {
 		const tmpArr = thousandDigits.slice(i, i + n);
-		const currentProd = arrayProd(tmpArr);
+		const currentProd = tmpArr.reduce((acc, item) => acc * item);
 		if (currentProd > largestProd) {
 			largestProd = currentProd;
 		}
 	}
 
 	return largestProd;
-};
-
-const arrayProd = (arr) => {
-	return arr.reduce((acc, item) => acc * item);
 };
