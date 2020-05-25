@@ -13,7 +13,7 @@ const divisibleTriangleNumber = (n) => {
 		currentTriangleNb += i;
 
 		// Find currentTriangleNb's divisors
-		divs = findDivisor(currentTriangleNb);
+		divs = findDivisors(currentTriangleNb);
 
 		// Increment i
 		i++;
@@ -22,12 +22,12 @@ const divisibleTriangleNumber = (n) => {
 	return currentTriangleNb;
 };
 
-const findDivisor = (n) => {
-	// Init i and divisors
+const findDivisors = (n) => {
+	// Init i and divs
 	let i = 2;
 	const divs = [ 1 ];
 
-	// Check if n is divisable by i from i to sqrt(n)
+	// Push i and n / i if i is a divisor of n
 	while (i <= Math.sqrt(n)) {
 		if (n % i === 0) {
 			divs.push(i);
